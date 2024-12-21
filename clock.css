@@ -51,21 +51,21 @@ body {
 }
 
 .clock {
-    width: 34vw;
-    min-width: 300px;
+    width: 34rem;
+    max-width: 100%;
 }
 
 .clock-box {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5vw;
+    gap: 0.5rem;
 }
 
 .clock-items {
     flex: 1 1 auto;
-    padding: 1.25vw;
+    padding: 1.25rem;
     background-color: var(--accent-color);
-    border-radius: 0.5vw;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,11 +75,11 @@ body {
 .day, .month, .weekday {
     font-family: 'Monomaniac One';
     text-transform: uppercase;
-    height: 7vw;
+    height: 7rem;
 }
 
 .day, .month, .weekday {
-    font-size: 4vw;
+    font-size: 4rem;
     line-height: 1;
 }
 
@@ -89,17 +89,56 @@ body {
 
 .minute, .hour, .second {
     font-family: "DigitalNumbers";
-    letter-spacing: -0.25vw;
+    letter-spacing: -0.25rem;
     flex-basis: 30%;
-    height: 11vw;
+    height: 11rem;
 }
 
 .minute, .hour {
-    font-size: 5vw;
+    font-size: 5rem;
 }
 
 .second {
-    font-size: 3vw;
+    font-size: 3rem;
     align-items: end;
     justify-content: end;
+}
+
+@media screen and (max-width: 34rem) {
+    .clock-box {
+        gap: 0.3rem;
+    }
+
+    .clock-items {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .day, .month, .weekday {
+        height: 5rem;
+    }
+    
+    .day, .month, .weekday {
+        font-size: 2rem;
+        line-height: 1;
+    }
+    
+    .weekday {
+        width: 100%;
+    }
+    
+    .minute, .hour, .second {
+        font-family: "DigitalNumbers";
+        letter-spacing: -0.1rem;
+        flex-basis: 30%;
+        height: 7rem;
+    }
+    
+    .minute, .hour {
+        font-size: 3rem;
+    }
+    
+    .second {
+        font-size: 2rem;
+    }
 }
