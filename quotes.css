@@ -1,0 +1,98 @@
+:root {
+    --bg: #FFFFFF;
+    --text-color: #F2F2F2;
+    --accent-color: #356B00;
+    --secondary-color: #592F20;
+}
+
+* {    
+    -webkit-box-sizing: border-box;    
+            box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {    
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: "Ruda", serif;
+    background-color: var(--bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.3;
+    line-height: normal;
+    font-weight: 400;
+}
+
+.quotes {
+    width: 34rem;
+    max-width: 100%;
+    position: relative;
+}
+
+.quotes-item {
+    padding: 1.25rem;
+    background-color: var(--accent-color);
+    border-radius: 0.5rem;
+    margin: 0;
+}
+
+.quotes-item__text {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.quotes-item__text::before {
+    content: '❝';
+    position: absolute;
+    top: 0;
+    left: -0.5rem;
+    font-family: 'Ruda', sans-serif;
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.quotes-item__footer {
+    text-align: right;
+    font-style: italic;
+    font-weight: 800;
+}
+
+.quotes__button {
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media screen and (max-width: 34rem) {    
+    .quotes-item {
+        padding: 1rem;
+    }
+
+    .quotes-item__text {
+        font-size: 1.5rem;
+    }
+}
