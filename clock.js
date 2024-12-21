@@ -26,7 +26,7 @@ function showRealTime(date) {
     } else {
         currentMinute.innerHTML = date.minute;
     }
-    
+
     if (date.second < 10) {
         currentSecond.innerHTML = `0${date.second}`;
     } else {
@@ -45,17 +45,29 @@ let currentDate = {
     minute: today.getMinutes(),
     second: today.getSeconds()
 }
-
 showRealTime(currentDate);
 
-//Get day and weekday
 setInterval(() => {
     today = new Date();
+
+    //Get day and weekday
     currentDate.weekday = new Intl.DateTimeFormat("en-US", options).format(today);
-    currentDate.day = today.day;
-    currentDate.month = today.getMonth();
+    currentDate.day = today.getDate();
+
+    //Get month
+    currentDate.month = monthName(today.getMonth());
+
+    //Get hour
+    currentDate.hour = today.getHours();
+    
+    //Get minutes
+    currentDate.minute = today.getMinutes();
+
+    //Get second
+    currentDate.second = today.getSeconds();
     showRealTime(currentDate)
-}, 1440000);
+    console.log(today)
+}, 1000);
 
 //Get month
 function monthName(month) {
@@ -100,30 +112,3 @@ function monthName(month) {
     }
     return name;
 }
-setInterval(() => {
-    currentDate.month = monthName(today.getMonth());
-    showRealTime(currentDate)
-}, 1440000);
-
-//Get hour
-setInterval(() => {
-    today = new Date();
-    currentDate.hour = today.getHours();
-    showRealTime(currentDate)
-}, 60000);
-
-//Get minutes
-setInterval(() => {
-    today = new Date();
-    currentDate.minute = today.getMinutes();
-    showRealTime(currentDate)
-}, 60000);
-
-//Get second
-setInterval(() => {
-    today = new Date();
-    currentDate.second = today.getSeconds();
-    showRealTime(currentDate)
-}, 1000);
-
-
