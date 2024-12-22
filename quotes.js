@@ -6,18 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = document.querySelector(".quotes__button");
     const quote = document.querySelector(".quotes-item__text");
     const cite = document.querySelector(".quotes-item__author");
-  
+
     async function updateQuote() {
-      // Fetch a random quote from the Quotable API
-      const response = await fetch("https://api.quotable.io/quotes/random");
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data)
+      try {
+        const response = await fetch("https://api.quotable.io/quotes/random");
+        const { statusCode, statusMessage, ...data } = await response.json();
+        if (!response.ok) throw new Error(`${statusCode} ${statusMessage}`);
         quote.textContent = data[0].content;
         cite.textContent = data[0].author;
-      } else {
-        quote.textContent = "An error occured";
-        console.log(data);
+      } catch (error) {
+        console.error(error);
+        quote.textContent = "Opps... Something went wrong";
       }
     }
   
