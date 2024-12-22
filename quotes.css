@@ -25,7 +25,7 @@ img {
 }
 
 body {
-    font-family: "Ruda", serif;
+    font-family: "Ruda", sans-serif;
     background-color: var(--bg);
     color: var(--text-color);
     font-size: 1rem;
@@ -78,6 +78,9 @@ body {
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 2rem;
     background-color: var(--secondary-color);
     color: var(--text-color);
