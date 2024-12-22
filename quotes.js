@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   
     async function updateQuote() {
       // Fetch a random quote from the Quotable API
-      const response = await fetch("https://api.quotable.io/random?minLength=100&maxLength=200");
+      const response = await fetch("https://api.quotable.io/quotes/random");
       const data = await response.json();
       if (response.ok) {
-        // Update DOM elements
-        quote.textContent = data.content;
-        cite.textContent = data.author;
+        console.log(data)
+        quote.textContent = data[0].content;
+        cite.textContent = data[0].author;
       } else {
         quote.textContent = "An error occured";
         console.log(data);
