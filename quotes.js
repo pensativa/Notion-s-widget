@@ -1,4 +1,4 @@
-// Powered by https://quotes-api-self.vercel.app/quote
+// Powered by Quotes api
 // https://github.com/well300/quotes-api
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(url);
         const data = await response.json();
         if (!response.ok) throw new Error(`${statusCode} ${statusMessage}`);
-        console.log(data);
         quote.textContent = data.quote;
         cite.textContent = data.author;
       } catch (error) {
