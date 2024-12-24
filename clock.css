@@ -115,11 +115,8 @@ body {
     }
 
     .day, .month, .weekday {
-        height: 5rem;
-    }
-    
-    .day, .month, .weekday {
-        font-size: 2rem;
+        height: 3rem;
+        font-size: 1.5rem;
         line-height: 1;
     }
     
@@ -140,5 +137,17 @@ body {
     
     .second {
         font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .second {
+        display: none;
+    }
+
+    .minute, .hour {
+        height: 8rem;
+        font-size: 3.5rem;
+        padding: 0;
     }
 }

@@ -66,7 +66,6 @@ setInterval(() => {
     //Get second
     currentDate.second = today.getSeconds();
     showRealTime(currentDate)
-    console.log(today)
 }, 1000);
 
 //Get month
