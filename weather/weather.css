@@ -1,0 +1,151 @@
+:root {
+    --bg: #1c273a;
+    --text-color: #FBFBFB;
+    --accent-color: #11F221;
+    --secondary-color: #DF0000;
+}
+
+* {    
+    -webkit-box-sizing: border-box;    
+            box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {    
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: "Ruda", sans-serif;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.3;
+    line-height: normal;
+    font-weight: 400;
+}
+
+.weather {
+    background-color: var(--bg);
+    width: 34rem;
+    max-width: 100%;
+    min-height: 12rem;
+    border-radius: 1rem;
+    padding: 1.2rem;
+}
+
+.weather__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather__loading img {
+    max-width: 12rem;
+}
+
+.weather__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.weather__form input {
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid var(--text-color);
+    width: 70%;
+    padding: 0.5rem;
+    color: inherit;
+    position: relative;
+}
+
+.weather__form-data {
+    bottom: 1rem;
+    width: 100%;
+    max-height: 6.2rem;
+    overflow: hidden scroll;
+    scrollbar-width: none;
+}
+
+.weather__form-data p {
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0.5rem;
+}
+
+.weather__form-data p:not(.not-found):hover {
+    background-color: var(--accent-color);
+    color: var(--bg);
+}
+
+.not-found {
+    color: var(--secondary-color);
+    text-transform: uppercase;
+}
+
+.weather__form input::placeholder {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.weather__form button {
+    width: calc(30% - 0.5rem);
+    background-color: var(--accent-color);
+    border: none;
+    box-shadow: none;
+    color: var(--bg);
+    padding: 0.5rem;
+    font-weight: 800;
+    transition: 0.4s;
+}
+
+.weather__form button:hover,
+.weather__form button:active {
+    background: var(--text-color);
+}
+
+.weather__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.weather__city {
+    font-size: 2rem;
+}
+
+.weather__icon {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+
+.weather__temp {
+    font-size: 3rem;
+}
+
+.weather__feels-like {
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.weather__temp .plus,
+.weather__feels-like .plus {
+    color: var(--accent-color);
+}
+
+.weather__temp .minus,
+.weather__feels-like .minus {
+    color: var(--secondary-color);
+}

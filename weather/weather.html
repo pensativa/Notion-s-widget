@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="weather.css" />
+    <title>Notion's widgets</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="weather" class="weather">
+            <div class="weather__get-city">
+                <form class="weather__form">
+                  <label for="datalist">Print youe city name, please</label>
+                  <input id="datalist" placeholder="Start printing..">
+                  <button type="submit">Submit</button>
+                  <div class="weather__form-data"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="weather.js"></script>
+</body>
+</html>
