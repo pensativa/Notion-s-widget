@@ -40,7 +40,6 @@ body {
 
 .weather {
     background-color: var(--bg);
-    width: 34rem;
     max-width: 100%;
     min-height: 12rem;
     border-radius: 1rem;
@@ -83,6 +82,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    width: 34rem;
+    max-width: 100%;
 }
 
 .weather__form-fieldset {
@@ -258,6 +259,15 @@ body {
 .weather__temp .minus,
 .weather__feels-like .minus {
     color: var(--secondary-color);
+}
+
+#weather-settings {
+    display: flex;
+
+}
+
+.weather-settings__preview {
+    flex: 1 1 auto;
 }
 
 @media screen and (max-width: 640px) {
