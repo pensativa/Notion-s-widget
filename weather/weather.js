@@ -80,8 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(api_url);
         const data = await response.json();
         if (!response.ok) throw new Error(`${statusCode} ${statusMessage}`);
-        console.log(data)
-        //getWeather(data)
+        //console.log(data)
+        getWeather(data)
       } catch (error) {
         console.error(error);
         block.innerHTML = statusMessage;

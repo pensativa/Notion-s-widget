@@ -40,7 +40,6 @@ body {
 
 .weather {
     background-color: var(--bg);
-    width: 34rem;
     max-width: 100%;
     min-height: 12rem;
     border-radius: 1rem;
@@ -83,6 +82,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    width: 34rem;
+    max-width: 100%;
 }
 
 .weather__form-fieldset {
@@ -260,8 +261,59 @@ body {
     color: var(--secondary-color);
 }
 
+.weather-settings__bar {
+    max-width: 100%;
+}
+
+#weather-settings {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.weather-settings__preview {
+    flex: 1 1 auto;
+    --text-color: #1c273a;
+    --bg: #FBFBFB;
+}
+
+.weather-settings__preview .wrapper {
+    color: var(--text-color);
+    background-color: var(--bg);
+    height: 100%;
+
+}
+
+.weather-settings__preview .weather__header,
+.weather-settings__preview .weather__feels-like {
+    width: 60%;
+    margin: 0 auto;
+    min-width: 300px;
+    max-width: 100%;
+}
+
 @media screen and (max-width: 640px) {
     :host, :root {
         --rem: 14;
+    }
+
+    .weather-settings__preview .weather__header,
+    .weather-settings__preview .weather__feels-like {
+        width: 100%;
+    }
+
+    .weather__city {
+        font-size: 1.5rem;
+    }
+
+    .weather__temp {
+        font-size: 2.5rem;
+    }
+
+    .weather__icon img {
+        width: 30px;
+    }
+
+    .header {
+        border-bottom: 1px solid var(--accent-color);
     }
 }
