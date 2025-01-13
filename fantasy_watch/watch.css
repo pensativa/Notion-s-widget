@@ -48,9 +48,12 @@ body {
 .watch-box {
     width: 42vw;
     height: 42vw;
-    background: url('img/clock.webp') no-repeat center/contain;
     position: relative;
     margin-bottom: 5vw;
+}
+
+.watch-box img {
+    width: 100%;
 }
 
 .watch-box::after {
