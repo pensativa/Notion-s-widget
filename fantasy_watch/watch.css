@@ -1,6 +1,6 @@
 :root {
     --bg: #565AA6;
-    --text-color: #88B0BF;
+    --text-color: #d5eef7;
     --accent-color: #0D1A26;
     --secondary-color: #2A4759;
     --hour-deg: 20deg;
@@ -29,6 +29,7 @@ img {
 body {
     font-family: monospace;
     background-color: var(--bg);
+    font-family: "Yeseva One", serif;
     color: var(--text-color);
     font-size: 1rem;
     line-height: 1.3;

@@ -128,7 +128,7 @@ function showWeather(data) {
 }
 
 async function loadWeather() {
-    const api_url =`http://wttr.in/?format=j1`;
+    const api_url =`http://api.wttr.in/?format=j1`;
 
     block.innerHTML = `
       <div class="weather__loading">
