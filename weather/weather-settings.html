@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="weather.css" />
+    <title>Notion's widgets</title>
+</head>
+<body class="weather">
+    <header class="header">
+        <div class="wrapper">
+            <a href="https://pensativa.github.io/Notion-s-widget/">
+                <img src="img/logo.svg" alt="Pensativa" class="logo">
+            </a>
+        </div>
+    </header>
+    <main id="weather-settings">
+        <sidebar class="weather-settings__bar">
+            <div class="wrapper">
+                <form class="weather__form">
+                    <fieldset class="weather__form-fieldset weather__fieldset-input">
+                        <label for="datalist" class="weather__form-label">Print your city name</label>
+                        <input id="datalist" class="weather__form-input" placeholder="Start printing..">
+                        <div class="weather__form-data"></div>
+                    </fieldset>
+                    <fieldset class="weather__form-fieldset weather__fieldset-radio">
+                        <p class="weather__form-label">Choose your measurement</p>
+                        <input type="radio" name="methure" id="metric" checked>
+                        <label for="metric">Celsius</label>
+                        <input type="radio" name="methure" id="imperial">
+                        <label for="imperial">Kelvin</label>
+                        <input type="radio" name="methure" id="standard">
+                        <label for="standard">Fahrenheit</label>
+                    </fieldset>
+                    <fieldset class="weather__form-fieldset weather__fieldset-select">
+                        <label for="lang" class="weather__form-label">Choose you language</label>
+                        <select id="lang" class="weather__form-input">
+                            <option  value="">Select</option>
+                        </select>
+                        <div class="weather__form-data"></div>
+                    </fieldset>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </sidebar>
+        <div class="weather-settings__preview">
+            <div class="wrapper">
+            </div>
+        </div>
+    </main>
+    <script src="weather-settings.js"></script>
+</body>
+</html>

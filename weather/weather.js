@@ -2,19 +2,11 @@
 // OpenWeather https://openweathermap.org/
 
 document.addEventListener("DOMContentLoaded", () => {
-    // DOM elements
     const block = document.querySelector(".weather");
-    let isCity = localStorage.getItem('isCity')
+    let isCity = localStorage.getItem('isCity');
+    const cityInput = document.getElementById('datalist');
     if (isCity) {
       loadWeather(isCity)
-    }
-
-    
-    document.querySelector('.weather__form').onsubmit = (e) => {
-      e.preventDefault();
-      const currentCity = e.target[0].value;
-      //localStorage.setItem("isCity", currentCity);
-      populate(currentCity);
     }
 
     async function populate(searchName) {
@@ -47,9 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    document.querySelector('#datalist').oninput = (e) => {
-      populate(e.target.value);
+    if (cityInput) {
+      cityInput.oninput = (e) => {
+        populate(e.target.value);
+      }
     }
+      
 
     function chooseResultOption() {
       let myInterval = 500;
@@ -73,11 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function loadWeather(currentCity) {
-      const api_url =`https://api.openweathermap.org/data/2.5/weather?units=metric&q=${currentCity}&appid=5df46c6ea9222d2b4875c0dc6b4eb1c3`;
+      const api_url =`https://api.openweathermap.org/data/2.5/forecast?units=metric&q=${currentCity}&appid=5df46c6ea9222d2b4875c0dc6b4eb1c3`;
 
       block.innerHTML = `
         <div class="weather__loading">
-          <img src="img/loading.gif" alt="Loading...">
+          <div class="weather__loading-spinner"></div>
         </div>
         `
   
@@ -85,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(api_url);
         const data = await response.json();
         if (!response.ok) throw new Error(`${statusCode} ${statusMessage}`);
+        //console.log(data)
         getWeather(data)
       } catch (error) {
         console.error(error);
@@ -94,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getWeather(data) {
       //console.log(data)
-      const city = data.name;
-      const status = data.weather[0].main;
-      const temp = isPlus(data.main.temp);
-      const feelsLike = isPlus(data.main.feels_like);
-      const icon = data.weather[0].icon.replace(/[^-0-9-.]/, '');
+      const city = data.city.name;
+      const status = data.list[0].weather[0].main;
+      const temp = isPlus(data.list[0].main.temp);
+      const feelsLike = isPlus(data.list[0].main.feels_like);
+      const icon = data.list[0].weather[0].icon.replace(/[^-0-9-.]/, '');
       const teplate = `
             <div class="weather__header">
               <div class="weather__main">
