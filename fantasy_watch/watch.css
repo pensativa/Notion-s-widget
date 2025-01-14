@@ -58,12 +58,12 @@ body {
 
 .watch-box::after {
     content: '';
-    width: 2vw;
-    height: 2vw;
+    width: 1.2vw;
+    height: 1.2vw;
     border-radius: 50%;
-    background-color: #171817;
+    background-color: var(--secondary-color);
     position: absolute;
-    top: 50%;
+    top: 49.7%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -77,6 +77,7 @@ body {
     position: absolute;
     transform-origin: 48% 67%;
     transform: rotate(var(--hour-deg));
+    filter: contrast(0.7);
   }
 
 .watch-box__minut {
@@ -88,6 +89,7 @@ body {
     position: absolute;
     transform-origin: 49% 93%;
     transform: rotate(var(--minut-deg));
+    filter: contrast(0.9);
 }
 
 .text-box {
@@ -95,11 +97,24 @@ body {
     padding: 1.6vw 2vw;
     border-radius: 10px;
     align-self: flex-end;
-    background-color: var(--text-color);
-    color: var(--accent-color);
+    text-align: right;
+}
+
+.date {
     font-size: 4vw;
-    width: 35%;
-    min-width: 250px;
+    line-height: 0.9;
+    margin-bottom: 1vw;
+}
+
+.weather {
+    font-size: 1.5vw;
+}
+
+.weather svg {
+    fill: var(--text-color);
+    width: 1.5vw;
+    height: auto;
+    vertical-align: super;
 }
 
 .weather iframe {
