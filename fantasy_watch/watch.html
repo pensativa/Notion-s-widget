@@ -12,19 +12,16 @@
     <link rel="stylesheet" href="watch.css" />
     <title>Notion's widgets</title>
 </head>
-<body class="watch">
-    <div class="watch-box">
-        <img src="img/clock.webp" alt="Analog clock skin" width="500" height="500">
-        <div class="watch-box__hour"></div>
-        <div class="watch-box__minut"></div>
-    </div>
-    <div class="text-box">
-        <div class="date">
-            <p><span class="hour"></span>:<span class="minute"></span></p>
-            <p><span class="month"></span>, <span class="day"></span></p>
+<body>
+    <div class="watch">
+        <div class="watch-box">
+            <img src="img/clock.webp" alt="Analog clock skin" width="500" height="500">
+            <div class="watch-box__hour"></div>
+            <div class="watch-box__minut"></div>
         </div>
-        <div class="weather">
-            <iframe src="http://wttr.in/?format=4" frameborder="0" marginwidth="0" marginheight="0" title="Weather widget by http://wttr.in"></iframe>
+        <div class="date-box">
+            <p class="time"><span class="hour"></span>:<span class="minute"></span></p>
+            <p class="date"><span class="month"></span>, <span class="day"></span></p>
         </div>
     </div>
     <script src="watch.js"></script>

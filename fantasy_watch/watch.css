@@ -27,8 +27,7 @@ img {
 }
 
 body {
-    font-family: monospace;
-    background-color: var(--bg);
+    background-color: transparent;
     font-family: "Yeseva One", serif;
     color: var(--text-color);
     font-size: 1rem;
@@ -64,8 +63,8 @@ body {
     border-radius: 50%;
     background-color: var(--secondary-color);
     position: absolute;
-    top: 49.7%;
-    left: 50%;
+    top: 49.5%;
+    left: 49.9%;
     transform: translate(-50%, -50%);
 }
 
@@ -93,39 +92,20 @@ body {
     filter: contrast(0.9);
 }
 
-.text-box {
+.date-box {
     background-color: var(--bg);
-    padding: 1.6vw 2vw;
-    border-radius: 10px;
+    padding: 2vw 3vw;
+    border-radius: 2vw;
     align-self: flex-end;
     text-align: right;
+    line-height: 0.9;
+}
+
+.time {
+    font-size: 5vw;
+    margin-bottom: 1vw;
 }
 
 .date {
     font-size: 4vw;
-    line-height: 0.9;
-    margin-bottom: 1vw;
-}
-
-.weather {
-    font-size: 1.5vw;
-}
-
-.weather svg {
-    fill: var(--text-color);
-    width: 1.5vw;
-    height: auto;
-    vertical-align: super;
-}
-
-.weather iframe {
-    height: 44px;
-    border: none;
-    object-fit: scale-down;
-    width: 96%;
-}
-
-pre {
-    font-size: 20px;
-    margin: 0;
 }
