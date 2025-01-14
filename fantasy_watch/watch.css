@@ -1,0 +1,111 @@
+:root {
+    --bg: #565AA6;
+    --text-color: #d5eef7;
+    --accent-color: #0D1A26;
+    --secondary-color: #2A4759;
+    --hour-deg: 20deg;
+    --minut-deg: 180deg;
+}
+
+* {    
+    -webkit-box-sizing: border-box;    
+            box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {    
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    background-color: transparent;
+    font-family: "Yeseva One", serif;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.3;
+    line-height: normal;
+    font-weight: 400;
+}
+
+.watch {
+    width: 1200px;
+    max-width: 100%;
+    background: url('img/bg.webp') no-repeat center/cover;
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+}
+
+.watch-box {
+    width: 42vw;
+    height: 42vw;
+    position: relative;
+    margin-bottom: 5vw;
+}
+
+.watch-box img {
+    width: 100%;
+}
+
+.watch-box::after {
+    content: '';
+    width: 1.2vw;
+    height: 1.2vw;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    position: absolute;
+    top: 49.5%;
+    left: 49.9%;
+    transform: translate(-50%, -50%);
+}
+
+.watch-box__hour {
+    background: url('img/short-arrow.webp') no-repeat top/contain;
+    height: 31%;
+    width: 8%;
+    left: 46%;
+    top: 29%;
+    position: absolute;
+    transform-origin: 48% 67%;
+    transform: rotate(var(--hour-deg));
+    filter: contrast(0.7);
+  }
+
+.watch-box__minut {
+    background: url('img/long-arrow.webp') no-repeat top/contain;
+    height: 43%;
+    width: 10%;
+    left: 45%;
+    top: 10%;
+    position: absolute;
+    transform-origin: 49% 93%;
+    transform: rotate(var(--minut-deg));
+    filter: contrast(0.9);
+}
+
+.date-box {
+    background-color: var(--bg);
+    padding: 2vw 3vw;
+    border-radius: 2vw;
+    align-self: flex-end;
+    text-align: right;
+    line-height: 0.9;
+}
+
+.time {
+    font-size: 5vw;
+    margin-bottom: 1vw;
+}
+
+.date {
+    font-size: 4vw;
+}
