@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Reminder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', Arial, sans-serif;
+            background-color: transparent;
+        }
+        .message-box {
+            padding: 2rem 0;
+            display: inline-block;
+        }
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+        }
+        .message i {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        button {
+            font-family: inherit;
+            padding: 0.8rem 1rem;
+            border: none;
+            background-color: #29A5FF;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.4s;
+            color: white;
+            border-radius: 0px;
+            cursor: pointer;
+            float: right;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background-color: #83CBF0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message-box">
+        <p class="message" id="taskMessage"></p>
+        <button onclick="updateMessage()">Refresh Message</button>
+    </div>
+
+    <script>
+        function getRandomWish() {
+            const wishes = [
+                "You're doing great! Keep it up! 😊",
+                "Cleaning can be fun—put on your favorite music! 🎶",
+                "A tidy space brings a tidy mind. Keep going! ✨",
+                "Small steps make a big difference! 🚀",
+                "You're one step closer to a spotless home! 🏡",
+                "Take a deep breath—you've got this! 🌿",
+                "Cleaning done? Time for a well-deserved break! ☕",
+                "Every little effort counts. Keep shining! 🌟",
+                "A fresh start begins with a clean space! 🌼",
+                "Your future self will thank you! 💪"
+            ];
+            return wishes[Math.floor(Math.random() * wishes.length)];
+        }
+
+        function updateMessage() {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString(undefined);
+            const wish = getRandomWish();
+
+            document.getElementById("taskMessage").innerHTML = 
+                `Hello! Today is <b>${formattedDate}</b>. You can find current tasks below. <br> 
+                <i>“ ${wish}</i> `;
+        }
+
+        updateMessage();
+    </script>
+
+</body>
+</html>
