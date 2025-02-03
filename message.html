@@ -8,10 +8,10 @@
     <style>
         body {
             font-family: 'Quicksand', Arial, sans-serif;
-            background-color: transparent;
+            background-color: #CEF4FF;
         }
         .message-box {
-            padding: 2rem 0;
+            padding: 1rem;
             display: inline-block;
         }
         .message {
@@ -44,23 +44,23 @@
 <body>
 
     <div class="message-box">
-        <p class="message" id="taskMessage"></p>
-        <button onclick="updateMessage()">Refresh Message</button>
+        <div class="message" id="taskMessage"></div>
+        <button onclick="updateMessage()">Refresh phrase </button>
     </div>
 
     <script>
         function getRandomWish() {
             const wishes = [
-                "You're doing great! Keep it up! 😊",
-                "Cleaning can be fun—put on your favorite music! 🎶",
-                "A tidy space brings a tidy mind. Keep going! ✨",
-                "Small steps make a big difference! 🚀",
-                "You're one step closer to a spotless home! 🏡",
-                "Take a deep breath—you've got this! 🌿",
-                "Cleaning done? Time for a well-deserved break! ☕",
-                "Every little effort counts. Keep shining! 🌟",
-                "A fresh start begins with a clean space! 🌼",
-                "Your future self will thank you! 💪"
+                "<i>“ You're doing great! Keep it up!</i> 😊",
+                "<i>“ Cleaning can be fun—put on your favorite music!</i> 🎶",
+                "<i>“ A tidy space brings a tidy mind. Keep going!</i> ✨",
+                "<i>“ Small steps make a big difference!</i> 🚀",
+                "<i>“ You're one step closer to a spotless home!</i> 🏡",
+                "<i>“ Take a deep breath—you've got this!</i> 🌿",
+                "<i>“ Cleaning done? Time for a well-deserved break!</i> ☕",
+                "<i>“ Every little effort counts. Keep shining!</i> 🌟",
+                "<i>“ A fresh start begins with a clean space!</i> 🌼",
+                "<i>“ Your future self will thank you!</i> 💪"
             ];
             return wishes[Math.floor(Math.random() * wishes.length)];
         }
@@ -71,8 +71,8 @@
             const wish = getRandomWish();
 
             document.getElementById("taskMessage").innerHTML = 
-                `Hello! Today is <b>${formattedDate}</b>. You can find current tasks below. <br> 
-                <i>“ ${wish}</i> `;
+                `<p>Hello! Today is <b>${formattedDate}</b>. You can find current tasks below. </p> 
+                <p>Phrase of the day: <br>${wish}</p>`;
         }
 
         updateMessage();
