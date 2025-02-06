@@ -9,6 +9,10 @@
         body {
             font-family: 'Quicksand', Arial, sans-serif;
             background-color: #CEF4FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100lvh;
         }
         .message-box {
             padding: 1rem;
@@ -42,10 +46,9 @@
     </style>
 </head>
 <body>
-
     <div class="message-box">
         <div class="message" id="taskMessage"></div>
-        <button onclick="updateMessage()">Refresh phrase </button>
+        <!-- <button onclick="updateMessage()">Refresh phrase </button> -->
     </div>
 
     <script>
@@ -60,7 +63,27 @@
                 "<i>“ Cleaning done? Time for a well-deserved break!</i> ☕",
                 "<i>“ Every little effort counts. Keep shining!</i> 🌟",
                 "<i>“ A fresh start begins with a clean space!</i> 🌼",
-                "<i>“ Your future self will thank you!</i> 💪"
+                "<i>“ Your future self will thank you!</i> 💪",
+                "<i>“ One task at a time—you're making progress!</i> 💪",
+                "<i>“ A clean home is a happy home. Keep going!</i> 🏡✨",
+                "<i>“ You're turning chaos into calm—great job!</i> 🌿",
+                "<i>“ Just 10 minutes of cleaning can make a huge difference!</i> ⏳",
+                "<i>“ Tidy space, tidy mind—you're on the right track!</i> 🧹",
+                "<i>“ You’re creating a peaceful and cozy home!</i> ☕🏡",
+                "<i>“ A little effort today saves a big mess tomorrow!</i> 🔄",
+                "<i>“ Cleaning is self-care too—you're doing amazing!</i> 💖",
+                "<i>“ Turn up the music and make cleaning fun!</i> 🎶",
+                "<i>“ Small steps, big results—you're nailing it!</i> 🚀",
+                "<i>“ Imagine how great your space will feel after this!</i> ✨",
+                "<i>“ A little progress each day adds up to big changes!</i> 📆",
+                "<i>“ Your home is thanking you for the love!</i> 🏠💕",
+                "<i>“ Decluttering = Less stress. Keep going!</i> 🌿",
+                "<i>“ You're making your space shine—keep it up!</i> 🌟",
+                "<i>“ Think of the fresh start you’re creating!</i> 🌼",
+                "<i>“ One task down, many victories to go!</i> ✅",
+                "<i>“ The best reward? A clean and cozy space!</i> 🎉",
+                "<i>“ You're a home organization wizard!</i> 🧙‍♂️",
+                "<i>“ Future you will be so proud—keep up the great work!</i> 💪"
             ];
             return wishes[Math.floor(Math.random() * wishes.length)];
         }
@@ -71,8 +94,8 @@
             const wish = getRandomWish();
 
             document.getElementById("taskMessage").innerHTML = 
-                `<p>Hello! Today is <b>${formattedDate}</b>. You can find current tasks below. </p> 
-                <p>Phrase of the day: <br>${wish}</p>`;
+                `<p>Phrase of the day:</p> 
+                <p>${wish}</p>`;
         }
 
         updateMessage();
