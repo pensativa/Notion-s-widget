@@ -3,16 +3,11 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const cityInput = document.getElementById('datalist');
-    const langSelect = document.getElementById('lang');
     const meathureInputs = document.querySelectorAll('input[name="methure"]');
     const block = document.querySelector('.weather-settings__preview .wrapper');
     const form = document.querySelector('.weather__form');
     const datalistOptions = document.querySelector('.weather__form-data');
     let currentMeasure = 'metric';
-
-    if (langSelect) {
-      lang();
-    }
 
     async function populate(searchName) {
       const requestURL = "city.list.min.json";
@@ -59,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     form.onsubmit = (e) => {
       e.preventDefault();
       const currentCity = cityInput.value || 'Kyiv';
-      const currentLang = langSelect.value || 'en';
       const type = 'weather';
       meathureInputs.forEach(el => {
         console.log(el)
@@ -67,22 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
           currentMeasure = el.getAttribute('id');
         }
       });
-      loadWeather(currentCity, currentLang, currentMeasure, type)
-    }
-
-    async function lang() {
-      const requestURL = "lang.json";
-      const request = new Request(requestURL);
-      const response = await fetch(request);
-      const langs = await response.json();
-      const selectOptions = document.getElementById('lang');
-      
-      langs.forEach(({ name, id }) => {
-        const option = document.createElement('option');
-        option.setAttribute("value", id);
-        option.textContent = name;
-        selectOptions.append(option);
-      });
+      loadWeather(currentCity, currentMeasure, type)
     }
 
     if (cityInput) {
@@ -105,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return `<span class="plus">${currentTemp}</span> ${meathureSign}`
     }
 
-    async function loadWeather(currentCity='Kyiv', currentLang='en', currentMeasure='metric', type='weather') {
-      const api_url =`https://api.openweathermap.org/data/2.5/${type}?units=${currentMeasure}&q=${currentCity}&lang=${currentLang}&appid=5df46c6ea9222d2b4875c0dc6b4eb1c3`;
+    async function loadWeather(currentCity='Kyiv', currentMeasure='metric', type='weather') {
+      const api_url =`https://api.openweathermap.org/data/2.5/${type}?units=${currentMeasure}&q=${currentCity}&lang=en&appid=5df46c6ea9222d2b4875c0dc6b4eb1c3`;
       console.log(api_url)
 
       block.innerHTML = `

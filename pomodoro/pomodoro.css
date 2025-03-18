@@ -1,0 +1,188 @@
+:root {
+    --bg: #1c273a;
+    --text-color: #FBFBFB;
+    --accent-color: #dc143c;
+    --secondary-color: #DF0000;
+    --rem: 16;
+}
+
+* {    
+    -webkit-box-sizing: border-box;    
+            box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {    
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: "Ruda", sans-serif;
+    color: var(--bg);
+    font-size: 1rem;
+    line-height: 1.3;
+    line-height: normal;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--text-color);
+}
+  
+  .pomodoro {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 400px;
+    max-width: 100%;
+    position: relative;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .timer {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+  }
+  
+  #time-display {
+    font-size: 5rem;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 250px;
+    transform: rotate(-90deg);
+  }
+  
+  .progress-ring__circle {
+    fill: transparent;
+    stroke: var(--accent-color);
+    stroke-width: 4;
+    stroke-dasharray: 301.59;
+    stroke-dashoffset: 301.59;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  input, button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  input {
+    width: 60px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  button {
+    background-color: var(--accent-color);
+    color: white;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: rgb(249, 52, 91);
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .settings {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    position: absolute;
+    bottom: 38px;
+    left: 0;
+    width: 100%;
+    padding: 40px 16px 16px;
+    background-color: var(--text-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    opacity: 0;
+    z-index: -1;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .settings.show {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .settings__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg);
+    color: var(--text-color);
+    border-radius: 12px;
+    transition: 0.3s;
+  }
+
+  .settings__close:hover {
+    box-shadow: 1px 0px 1px 1px inset rgb(255 255 255 / 75%);
+  }
+  
+  label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    text-align: left;
+    font-weight: 700;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  

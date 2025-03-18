@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="Custom widgets for websites, Notion and everywere you can add code" />
+    <meta name="keywords" content="widget, widgets, custom widgets, notion, template" />
     <meta charset="utf-8"/>
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
     <link rel="apple-touch-icon" href="logo192.png" />
@@ -13,14 +13,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="main.css" />
-    <title>Notion's widgets</title>
+    <title>Custom widgets</title>
     <meta name="description" content="Simple wigets for your websites and Notion space"/>
 </head>
 <body>
     <main class="main">
         <section class="hero">
             <div class="container">
-                <h1 class="hero__title">Notion's widgets</h1>
+                <h1 class="hero__title">Custom widgets</h1>
             </div>
         </section>
         <section class="wigets">
@@ -55,6 +55,15 @@
             <p class="footer__copyrights">&#10100; Made &#10101; with ❤️️ by <b><a href="https://pensativa.tech" target="_blank">Pensativa</a></b></p>
         </div>
     </footer>
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+    kofiWidgetOverlay.draw('pensativa', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#40FF40',
+        'floating-chat.donateButton.text-color': '#1F1C4E'
+    });
+    </script>
     <script src="main.js"></script>
 </body>
 </html>

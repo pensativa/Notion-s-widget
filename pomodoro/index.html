@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="pomodoro.css" />
+</head>
+<body>
+
+<div class="pomodoro">
+  <h1>Pomodoro Timer</h1>
+
+  <!-- Top controls -->
+  <div class="controls">
+    <button id="focus">Start focusing</button>
+    <button id="short-pause">Short break</button>
+    <button id="long-pause">Long break</button>
+  </div>
+  
+  <!-- Таймер -->
+  <div class="timer">
+    <span id="time-display">00:00</span>
+    <div class="progress-ring">
+        <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="progress-ring__circle" cx="125" cy="125" r="110" />
+        </svg>
+    </div>
+  </div>
+
+  <!-- Настройки -->
+  <div class="settings">
+    <div class="settings__close">X</div>
+    <div>
+      <label>Focus time (min):</label>
+      <input type="number" id="focus-time" min="1"/>
+    </div>
+    <div>
+      <label>Short break (min):</label>
+      <input type="number" id="short-break" min="1"/>
+    </div>
+    <div>
+      <label>Long break (min):</label>
+      <input type="number" id="long-break" min="1" />
+    </div>
+    <div>
+      <label>Cycles before long break:</label>
+      <input type="number" id="cycle-count" min="1"/>
+    </div>
+    <div>
+      <label>End sound:</label>
+      <select id="end-sound">
+        <option value="bip">Bip</option>
+        <option value="long">Long</option>
+        <option value="morze">Morze</option>
+        <option value="note">Note</option>
+        <option value="pager">Pager</option>
+        <option value="splash">Splash</option>
+        <option value="syren">Syren</option>
+      </select>
+    </div>
+    <div class="settings__submit"></div>
+  </div>
+
+  <!-- Bottom controls -->
+  <div class="controls">
+    <button id="start-btn">Start</button>
+    <button id="pause-btn" disabled>Pause</button>
+    <button id="reset-btn" disabled>Reset</button>
+    <button id="setting-btn">Setting</button>
+  </div>
+</div>
+
+<audio id="audio-bip" src="sounds/bip.mp3"></audio>
+<audio id="audio-long" src="sounds/long.mp3"></audio>
+<audio id="audio-morze" src="sounds/morze.mp3"></audio>
+<audio id="audio-note" src="sounds/note.mp3"></audio>
+<audio id="audio-pager" src="sounds/pager.mp3"></audio>
+<audio id="audio-splash" src="sounds/splash.mp3"></audio>
+<audio id="audio-syren" src="sounds/syren.mp3"></audio>
+
+<script src="pomodoro.js"></script>
+</body>
+</html>
