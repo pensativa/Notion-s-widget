@@ -1,179 +1,211 @@
-const timeDisplay = document.getElementById('time-display');
-const startBtn = document.getElementById('start-btn');
-const pauseBtn = document.getElementById('pause-btn');
-const resetBtn = document.getElementById('reset-btn');
-const focusBtn = document.getElementById('focus');
-const pauseShortBtn = document.getElementById('short-pause');
-const pauseLongBtn = document.getElementById('long-pause');
+class PomodoroWidget {
+  constructor(element) {
+      this.element = element;
+      this.timeDisplay = element.querySelector('#time-display');
+      this.startBtn = element.querySelector('#start-btn');
+      this.pauseBtn = element.querySelector('#pause-btn');
+      this.resetBtn = element.querySelector('#reset-btn');
+      this.saveSettingsBtn = element.querySelector('#save-settings-btn');
 
-const focusTimeInput = document.getElementById('focus-time');
-const shortBreakInput = document.getElementById('short-break');
-const longBreakInput = document.getElementById('long-break');
-const cycleCountInput = document.getElementById('cycle-count');
-const endSoundSelect = document.getElementById('end-sound');
+      // Поля для ввода пользовательских настроек
+      this.focusInput = element.querySelector('#focus-time');
+      this.shortBreakInput = element.querySelector('#short-break');
+      this.longBreakInput = element.querySelector('#long-break');
+      this.cycleInput = element.querySelector('#cycle-count');
 
-const showSettings = document.getElementById('setting-btn');
-const settingsPanel = document.querySelector('.settings');
+      // Получаем значения из атрибутов или localStorage
+      const savedSettings = JSON.parse(localStorage.getItem('pomodoro-settings')) || {};
+      this.focusTime = savedSettings.focusTime || +element.getAttribute('data-focus-time') || 25;
+      this.shortBreak = savedSettings.shortBreak || +element.getAttribute('data-short-break') || 5;
+      this.longBreak = savedSettings.longBreak || +element.getAttribute('data-long-break') || 15;
+      this.cycleCount = savedSettings.cycleCount || +element.getAttribute('data-cycle-count') || 4;
 
-showSettings.onclick = () => settingsPanel.classList.toggle('show');
-document.querySelector('.settings__close').onclick = () => settingsPanel.classList.remove('show');
+      this.endSound = element.getAttribute('data-end-sound') || 'bip';
 
-const circle = document.querySelector('.progress-ring__circle');
-const CIRCUMFERENCE = 2 * Math.PI * 110;
-circle.style.strokeDasharray = CIRCUMFERENCE;
+      this.circle = element.querySelector('.progress-ring__circle');
+      this.CIRCUMFERENCE = 2 * Math.PI * 110;
+      this.circle.style.strokeDasharray = this.CIRCUMFERENCE;
 
-let countdown;
-let isRunning = false;
-let totalTime;
-let timeRemaining = 25 * 60;
-let currentCycle = 0;
-let isFocusPhase = true;
-let displayTime = 25 * 60;
+      this.state = JSON.parse(localStorage.getItem('pomodoro-state')) || {
+          timeRemaining: this.focusTime * 60,
+          isRunning: false,
+          currentCycle: 0,
+          isFocusPhase: true
+      };
 
-// Cashing settings
-let settings = JSON.parse(localStorage.getItem('pomodoro-settings')) || {
-  focusTime: 25,
-  shortBreak: 5,
-  longBreak: 15,
-  cycleCount: 4,
-  endSound: 'bip'
-};
+      this.init();
+  }
 
-let state = JSON.parse(localStorage.getItem('pomodoro-state')) || {
-  timeRemaining: settings.focusTime * 60,
-  isRunning: false,
-  currentCycle: 0,
-  isFocusPhase: true,
-};
+  // 👉 Инициализация
 
-// Loding settings
-function loadSettings() {
-  focusTimeInput.value = settings.focusTime;
-  shortBreakInput.value = settings.shortBreak;
-  longBreakInput.value = settings.longBreak;
-  cycleCountInput.value = settings.cycleCount;
-  endSoundSelect.value = settings.endSound;
-}
+  init() {
+      this.updateDisplay(this.state.timeRemaining);
+      this.updateProgress((1 - this.state.timeRemaining / (this.state.isFocusPhase ? this.focusTime : this.shortBreak) * 60) * 100);
 
-function saveSettings() {
-  settings = {
-    focusTime: +focusTimeInput.value,
-    shortBreak: +shortBreakInput.value,
-    longBreak: +longBreakInput.value,
-    cycleCount: +cycleCountInput.value,
-    endSound: endSoundSelect.value
-  };
-  localStorage.setItem('pomodoro-settings', JSON.stringify(settings));
-}
+      // Добавляем обработчики событий
+      this.startBtn.addEventListener('click', () => this.startTimer());
+      this.pauseBtn.addEventListener('click', () => this.pauseTimer());
+      this.resetBtn.addEventListener('click', () => this.resetTimer());
+      this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
 
-function updateDisplay(time) {
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
-  timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
+      // Устанавливаем значения в поля ввода
+      this.setSettingsFields();
 
-function updateProgress(percent) {
-    const offset = CIRCUMFERENCE - (percent / 100) * CIRCUMFERENCE;
-    circle.style.strokeDashoffset = offset;
-}
+      if (this.state.isRunning) {
+          this.startTimer();
+      }
+  }
 
-// Start timer
-function startTimer(duration) {
-  if (isRunning) return;
+  startTimer() {
+      if (this.state.isRunning) return;
 
-  totalTime = duration;
-  timeRemaining = duration;
-  isRunning = true;
-  pauseBtn.removeAttribute('disabled');
-  resetBtn.removeAttribute('disabled');
+      this.totalTime = this.state.isFocusPhase ? this.focusTime * 60 : this.shortBreak * 60;
+      this.state.timeRemaining = this.state.timeRemaining || this.totalTime;
 
-  countdown = setInterval(() => {
-    timeRemaining--;
-    updateDisplay(timeRemaining);
-    updateProgress((1 - timeRemaining / totalTime) * 100);
+      this.state.isRunning = true;
 
-    if (timeRemaining <= 0) {
-      clearInterval(countdown);
-      isRunning = false;
-      playEndSound();
-      nextPhase();
-    }
-  }, 1000);
-}
+      if (!this.worker) {
+          this.createWorker();
+      }
 
-// Phase toggle
-function nextPhase() {
-  if (isFocusPhase) {
-    currentCycle++;
-    if (currentCycle % settings.cycleCount === 0) {
-      isFocusPhase = false;
-      startTimer(settings.longBreak * 60);
-    } else {
-      isFocusPhase = false;
-      startTimer(settings.shortBreak * 60);
-    }
-  } else {
-    isFocusPhase = true;
-    startTimer(settings.focusTime * 60);
+      this.worker.postMessage({
+          action: 'start',
+          timeRemaining: this.state.timeRemaining
+      });
+  }
+
+  createWorker() {
+      const workerCode = `
+          let countdown;
+          onmessage = (e) => {
+              const { action, timeRemaining } = e.data;
+              if (action === 'start') {
+                  clearInterval(countdown);
+                  let time = timeRemaining;
+                  countdown = setInterval(() => {
+                      time--;
+                      postMessage(time);
+                      if (time <= 0) {
+                          clearInterval(countdown);
+                      }
+                  }, 1000);
+              }
+              if (action === 'stop') {
+                  clearInterval(countdown);
+              }
+          };
+      `;
+
+      const blob = new Blob([workerCode], { type: 'application/javascript' });
+      this.worker = new Worker(URL.createObjectURL(blob));
+
+      this.worker.onmessage = (e) => {
+          this.state.timeRemaining = e.data;
+          this.updateDisplay(this.state.timeRemaining);
+          this.updateProgress((1 - this.state.timeRemaining / this.totalTime) * 100);
+
+          if (this.state.timeRemaining <= 0) {
+              this.finishPhase();
+          }
+
+          this.saveState();
+      };
+  }
+
+  pauseTimer() {
+      if (!this.state.isRunning) return;
+
+      this.state.isRunning = false;
+      this.worker.postMessage({ action: 'stop' });
+      this.saveState();
+  }
+
+  resetTimer() {
+      this.state.isRunning = false;
+      this.state.currentCycle = 0;
+      this.state.isFocusPhase = true;
+      this.state.timeRemaining = this.focusTime * 60;
+
+      this.updateDisplay(this.state.timeRemaining);
+      this.updateProgress(0);
+
+      this.worker.postMessage({ action: 'stop' });
+      this.saveState();
+  }
+
+  finishPhase() {
+      this.playEndSound();
+
+      if (this.state.isFocusPhase) {
+          this.state.currentCycle++;
+          this.state.timeRemaining =
+              this.state.currentCycle % this.cycleCount === 0
+                  ? this.longBreak * 60
+                  : this.shortBreak * 60;
+          this.state.isFocusPhase = false;
+      } else {
+          this.state.isFocusPhase = true;
+          this.state.timeRemaining = this.focusTime * 60;
+      }
+
+      this.startTimer();
+  }
+
+  saveSettings() {
+      this.focusTime = +this.focusInput.value;
+      this.shortBreak = +this.shortBreakInput.value;
+      this.longBreak = +this.longBreakInput.value;
+      this.cycleCount = +this.cycleInput.value;
+
+      localStorage.setItem('pomodoro-settings', JSON.stringify({
+          focusTime: this.focusTime,
+          shortBreak: this.shortBreak,
+          longBreak: this.longBreak,
+          cycleCount: this.cycleCount
+      }));
+
+      this.resetTimer();
+  }
+
+  setSettingsFields() {
+      this.focusInput.value = this.focusTime;
+      this.shortBreakInput.value = this.shortBreak;
+      this.longBreakInput.value = this.longBreak;
+      this.cycleInput.value = this.cycleCount;
+  }
+
+  playEndSound() {
+      const audio = new Audio(`./sounds/${this.endSound}.mp3`);
+      audio.play();
+  }
+
+  updateDisplay(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      this.timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  updateProgress(percent) {
+      const offset = this.CIRCUMFERENCE - (percent / 100) * this.CIRCUMFERENCE;
+      this.circle.style.strokeDashoffset = offset;
+  }
+
+  saveState() {
+      localStorage.setItem('pomodoro-state', JSON.stringify(this.state));
   }
 }
 
-// Play sound
-function playEndSound() {
-  const audio = document.getElementById(`audio-${settings.endSound}`);
-  audio.play();
+function showSettings() {
+  const settingsBtn = document.querySelector('#setting-btn');
+  const settingsBlock = document.querySelector('.settings');
+  const settingsClose = document.querySelector('.settings__close');
+
+  settingsBtn.onclick = () => settingsBlock.classList.toggle('show');
+  settingsClose.onclick = () => settingsBlock.classList.remove('show');
 }
 
-// Buttons actions
-startBtn.onclick = () => {
-  saveSettings();
-  if (isFocusPhase) {
-    startTimer(settings.focusTime * 60);
-  } else {
-    nextPhase();
-  }
-};
-
-pauseBtn.onclick = () => {
-  clearInterval(countdown);
-  isRunning = false;
-};
-
-resetBtn.onclick = () => {
-  clearInterval(countdown);
-  isRunning = false;
-  currentCycle = 0;
-  isFocusPhase = true;
-  updateProgress(0);
-  updateDisplay(displayTime);
-  pauseBtn.setAttribute('disabled', 'disabled');
-  resetBtn.setAttribute('disabled', 'disabled');
-};
-
-focusBtn.onclick = () => {
-    displayTime = settings.focusTime * 60;
-    resetBtn.click();
-    isFocusPhase = true;
-    startTimer(settings.focusTime * 60);
-}
-pauseShortBtn.onclick = () => {
-    displayTime = settings.shortBreak * 60;
-    resetBtn.click();
-    isFocusPhase = false;
-    startTimer(settings.shortBreak * 60);
-}
-pauseLongBtn.onclick = () => {
-    displayTime = settings.longBreak * 60;
-    resetBtn.click();
-    isFocusPhase = false;
-    startTimer(settings.longBreak * 60);
-}
-
-// Initialization pomodoro
-function init() {
-    loadSettings();
-    updateDisplay(timeRemaining);
-    updateProgress((1 - timeRemaining / totalTime) * 100);
-}
-
-init();
+document.addEventListener('DOMContentLoaded', () => {
+  showSettings();
+  const widgets = document.querySelector('.pomodoro');
+  new PomodoroWidget(widgets)
+});

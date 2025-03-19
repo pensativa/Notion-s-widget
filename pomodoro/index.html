@@ -8,7 +8,12 @@
 </head>
 <body>
 
-<div class="pomodoro">
+<div class="pomodoro"
+    data-focus-time="25"
+    data-short-break="5"
+    data-long-break="15"
+    data-cycle-count="4"
+    data-end-sound="bip">
   <h1>Pomodoro Timer</h1>
 
   <!-- Top controls -->
@@ -59,7 +64,7 @@
         <option value="syren">Syren</option>
       </select>
     </div>
-    <div class="settings__submit"></div>
+    <button id="save-settings-btn">Save</button>
   </div>
 
   <!-- Bottom controls -->
