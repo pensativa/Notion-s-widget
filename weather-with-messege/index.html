@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Notion's widgets</title>
+</head>
+<body class="weather">
+    <div id="weather-settings">
+        <div class="weather-settings__bar">
+            <div class="wrapper">
+                <div class="weather-settings__close" title="Close setting panel" onclick="settingPanel()">&#10006</div>
+                <form class="weather__form">
+                    <fieldset class="weather__form-fieldset weather__fieldset-input">
+                        <label for="datalist" class="weather__form-label">Print your city name</label>
+                        <input id="datalist" class="weather__form-input" placeholder="Start printing..">
+                        <div class="weather__form-data"></div>
+                    </fieldset>
+                    <fieldset class="weather__form-fieldset weather__fieldset-radio">
+                        <p class="weather__form-label">Choose your measurement</p>
+                        <input type="radio" name="methure" id="metric" checked>
+                        <label for="metric">Celsius</label>
+                        <input type="radio" name="methure" id="imperial">
+                        <label for="imperial">Kelvin</label>
+                        <input type="radio" name="methure" id="standard">
+                        <label for="standard">Fahrenheit</label>
+                    </fieldset>
+                    <button type="submit" onclick="settingPanel()">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="weather-settings__preview">
+            <div class="weather-settings__show" title="Open setting panel" onclick="settingPanel()">⚙️</div>
+            <div class="wrapper">
+            </div>
+        </div>
+    </div>
+    <div class="message-box">
+        <div class="message" id="taskMessage"></div>
+        <!-- <button onclick="updateMessage()">Refresh phrase </button> -->
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
