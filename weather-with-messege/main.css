@@ -37,6 +37,7 @@ body {
     justify-content: center;
     min-height: 100lvh;
     margin: 0;
+    padding: 1rem;
 }
 .message-box {
     padding: 1rem;
@@ -68,6 +69,12 @@ button:hover {
     background-color: #83CBF0;
 }
 
+#weather-settings,
+.message-box {
+    width: 600px;
+    max-width: 100%;
+}
+
 .weather__header {
     display: flex;
     justify-content: space-between;
@@ -95,18 +102,20 @@ button:hover {
 }
 
 .weather__feels-like {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-align: right;
 }
 
 .weather__temp .plus,
 .weather__feels-like .plus {
     color: var(--green);
+    font-weight: 600;
 }
 
 .weather__temp .minus,
 .weather__feels-like .minus {
     color: var(--red);
+    font-weight: 600;
 }
 
 .weather-settings__bar {
@@ -132,11 +141,6 @@ button:hover {
     opacity: 1;
     scale: 1;
     z-index: 10;
-}
-
-#weather-settings {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .weather-settings__preview {

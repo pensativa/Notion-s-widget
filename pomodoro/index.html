@@ -23,62 +23,76 @@
   <h1>Pomodoro Timer</h1>
 
   <!-- Top controls -->
-  <div class="controls">
-    <button id="focus">Start focusing</button>
-    <button id="short-pause">Short break</button>
-    <button id="long-pause">Long break</button>
+  <div class="top-controls">
+    <button class="top-controls__btn active" id="focus">Focusing</button>
+    <button class="top-controls__btn" id="short-pause">Short break</button>
+    <button class="top-controls__btn" id="long-pause">Long break</button>
   </div>
   
   <!-- Таймер -->
   <div class="timer">
     <span id="time-display">00:00</span>
     <div class="progress-ring">
-      <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle class="progress-ring__circle" cx="125" cy="125" r="110" style="stroke-dasharray: 691.15; stroke-dashoffset: 0;"></circle>
+      <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle class="progress-ring__circle" cx="150" cy="150" r="130" style="stroke-dasharray: 691.15; stroke-dashoffset: 0;"></circle>
       </svg>
     </div>
   </div>
 
   <!-- Настройки -->
   <div class="settings">
-    <div class="settings__close">X</div>
-    <div>
-      <label>Focus time (min):</label>
-      <input type="number" id="focus-time" min="1"/>
+    <div class="settings__header">
+      <h2>Settings</h2>
+      <button type="button" class="settings__close" onclick="showSettings()">
+        <img src="img/cross.svg" alt="Close setting panel">
+      </button>
     </div>
-    <div>
-      <label>Short break (min):</label>
-      <input type="number" id="short-break" min="1"/>
+    <div class="settings__data">
+      <div>
+        <label>Focus time (min):</label>
+        <input type="number" id="focus-time" min="1"/>
+      </div>
+      <div>
+        <label>Short break (min):</label>
+        <input type="number" id="short-break" min="1"/>
+      </div>
+      <div>
+        <label>Long break (min):</label>
+        <input type="number" id="long-break" min="1" />
+      </div>
+      <div>
+        <label>Cycles before long break:</label>
+        <input type="number" id="cycle-count" min="1"/>
+      </div>
+      <div>
+        <label>End sound:</label>
+        <select id="end-sound">
+          <option value="bip">Bip</option>
+          <option value="long">Long</option>
+          <option value="morze">Morze</option>
+          <option value="note">Note</option>
+          <option value="pager">Pager</option>
+          <option value="splash">Splash</option>
+          <option value="syren">Syren</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label>Long break (min):</label>
-      <input type="number" id="long-break" min="1" />
-    </div>
-    <div>
-      <label>Cycles before long break:</label>
-      <input type="number" id="cycle-count" min="1"/>
-    </div>
-    <div>
-      <label>End sound:</label>
-      <select id="end-sound">
-        <option value="bip">Bip</option>
-        <option value="long">Long</option>
-        <option value="morze">Morze</option>
-        <option value="note">Note</option>
-        <option value="pager">Pager</option>
-        <option value="splash">Splash</option>
-        <option value="syren">Syren</option>
-      </select>
-    </div>
-    <button id="save-settings-btn">Save</button>
+    <button id="save-settings-btn" onclick="showSettings()">Save</button>
   </div>
 
   <!-- Bottom controls -->
   <div class="controls">
-    <button id="start-btn">Start</button>
-    <button id="pause-btn">Pause</button>
-    <button id="reset-btn">Reset</button>
-    <button id="setting-btn">Setting</button>
+    <button class="controls__btn active" id="start-btn">Start</button>
+    <button class="controls__btn" id="pause-btn">Pause</button>
+  </div>
+
+  <div class="setting-buttons">
+    <button id="setting-btn" title="Open setting panel" onclick="showSettings()">
+      <img width="32" height="32" src="img/setting.svg" alt="Show setting panel">
+    </button>
+    <button id="reset-btn" title="Reset all settings">
+      <img width="40" height="40" src="img/reset.svg" alt="Show setting panel">
+    </button>
   </div>
 
   <!-- Confirm popup -->
