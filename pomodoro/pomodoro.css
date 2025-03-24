@@ -126,13 +126,16 @@ body {
   
   .controls {
     position: absolute;
-    bottom: 143px;
+    bottom: 170px;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .controls__btn {
     font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -150,11 +153,11 @@ body {
     padding: 8px 12px;
     font-size: 14px;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
   }
   
   input {
+    border-radius: 6px;
     width: 60px;
     border: 1px solid #ccc;
     text-align: center;
@@ -180,6 +183,23 @@ body {
     background-color: #ccc;
     cursor: not-allowed;
   }*/
+
+  .setting-buttons button {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .setting-buttons button:hover {
+    background-color: var(--accent-color);
+  }
+
+  .setting-buttons button:hover img {
+    filter: brightness(3);
+  }
   
   .settings {
     position: fixed;

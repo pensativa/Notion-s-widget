@@ -54,6 +54,7 @@ class PomodoroWidget {
     this.focusBtn.addEventListener('click', () => {
         this.state.isFocusPhase = true;
         this.state.isRunning = false;
+        this.saveState();
         this.startTimer();
     });
     
@@ -61,6 +62,7 @@ class PomodoroWidget {
         this.state.isFocusPhase = false;
         this.state.isRunning = false;
         this.state.currentCycle = 0;
+        this.saveState();
         this.startTimer();
     });
     
@@ -68,6 +70,7 @@ class PomodoroWidget {
         this.state.isFocusPhase = false;
         this.state.isRunning = false;
         this.state.currentCycle = this.cycleCount;
+        this.saveState();
         this.startTimer();
     });
     
@@ -124,15 +127,25 @@ class PomodoroWidget {
     const workerCode = `
       let countdown;
       onmessage = (e) => {
-          const { action, timeRemaining } = e.data;
+          const { action, timeRemaining: remaining } = e.data;
+    
           if (action === 'start') {
               clearInterval(countdown);
-              let time = timeRemaining;
-              countdown = setInterval(() => {
-                  time--;
-                  postMessage(time);
-                  if (time <= 0) clearInterval(countdown);
-              }, 1000);
+              timeRemaining = remaining;
+              startTime = Date.now();
+
+              const tick = () => {
+                  const now = Date.now();
+                  const elapsed = Math.floor((now - startTime) / 1000);
+                  const newTimeRemaining = Math.max(timeRemaining - elapsed, 0);
+
+                  postMessage(newTimeRemaining);
+                  if (newTimeRemaining > 0) {
+                      requestAnimationFrame(tick);
+                  }
+              };
+
+              requestAnimationFrame(tick);
           }
           if (action === 'stop') clearInterval(countdown);
       };
@@ -145,6 +158,10 @@ class PomodoroWidget {
       this.state.timeRemaining = e.data;
       this.updateDisplay(this.state.timeRemaining);
       this.updateProgress(this.getProgress());
+
+      if (this.state.isRunning) {
+          this.saveState();
+      }
 
       if (this.state.timeRemaining <= 0) this.finishPhase();
     };
@@ -162,6 +179,7 @@ class PomodoroWidget {
 
   resetTimer() {
     this.state.isRunning = false;
+    this.state.isFocusPhase = true;
     this.state.timeRemaining = this.focusTime * 60;
     this.updateDisplay(this.state.timeRemaining);
     this.updateProgress(0);
@@ -171,6 +189,12 @@ class PomodoroWidget {
     this.focusBtn.classList.add('active');
     this.shortPauseBtn.classList.remove('active');
     this.longPauseBtn.classList.remove('active');
+    
+    if (this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+    }
+    this.saveState();
   }
 
   getProgress() {
@@ -216,6 +240,8 @@ class PomodoroWidget {
                 this.state.isFocusPhase = true;
                 this.state.timeRemaining = this.focusTime * 60;
             }
+            
+            this.saveState();
             this.startTimer();
         };
     
@@ -227,6 +253,11 @@ class PomodoroWidget {
             }
             this.saveState();
         };
+
+        if (this.worker) {
+          this.worker.terminate();
+          this.worker = null;
+      }
     }
 
   saveSettings() {
@@ -257,7 +288,9 @@ class PomodoroWidget {
 
   playEndSound() {
       const audio = new Audio(`./sounds/${this.endSound}.mp3`);
-      audio.play();
+      audio.play().catch((e) => {
+          console.warn('Error play sound:', e);
+      });
   }
 
   updateDisplay(time) {
@@ -267,8 +300,8 @@ class PomodoroWidget {
   }
 
   updateProgress(percent) {
-      const offset = this.CIRCUMFERENCE - (percent / 100) * this.CIRCUMFERENCE;
-      this.circle.style.strokeDashoffset = offset;
+    const offset = Math.round(this.CIRCUMFERENCE - (percent / 100) * this.CIRCUMFERENCE);
+    this.circle.style.strokeDashoffset = offset;
   }
 
   saveState() {
