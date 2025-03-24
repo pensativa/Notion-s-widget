@@ -174,15 +174,6 @@ body {
     color: inherit;
     transition: 0.3s;
   }
-  
-  /*button:hover {
-    background-color: #f9345b;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }*/
 
   .setting-buttons button {
     width: 54px;

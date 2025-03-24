@@ -52,25 +52,27 @@ class PomodoroWidget {
     this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
 
     this.focusBtn.addEventListener('click', () => {
-        this.state.isFocusPhase = true;
-        this.state.isRunning = false;
-        this.saveState();
+        this.resetTimer();
+        this.state.timeRemaining = 0;
+        this.updateProgress(0);
         this.startTimer();
     });
     
     this.shortPauseBtn.addEventListener('click', () => {
+        this.pauseTimer();
         this.state.isFocusPhase = false;
-        this.state.isRunning = false;
+        this.state.timeRemaining = 0;
         this.state.currentCycle = 0;
-        this.saveState();
+        this.updateProgress(0);
         this.startTimer();
     });
     
     this.longPauseBtn.addEventListener('click', () => {
+        this.pauseTimer();
         this.state.isFocusPhase = false;
-        this.state.isRunning = false;
         this.state.currentCycle = this.cycleCount;
-        this.saveState();
+        this.state.timeRemaining = 0;
+        this.updateProgress(0);
         this.startTimer();
     });
     
@@ -87,24 +89,23 @@ class PomodoroWidget {
     
     this.startBtn.classList.remove('active');
     this.pauseBtn.classList.add('active');
-
     if (this.state.timeRemaining <= 0) {
       if (this.state.isFocusPhase) {
           this.state.timeRemaining = this.focusTime * 60;
-        
+          this.updateDisplay(this.state.timeRemaining);
           this.focusBtn.classList.add('active');
           this.shortPauseBtn.classList.remove('active');
           this.longPauseBtn.classList.remove('active');;
       } else if (this.state.currentCycle / this.cycleCount === 1) { 
         this.state.timeRemaining = this.longBreak * 60;
+        this.updateDisplay(this.state.timeRemaining);
         this.state.currentCycle = 0;
-        
         this.focusBtn.classList.remove('active');
         this.shortPauseBtn.classList.remove('active');
         this.longPauseBtn.classList.add('active');
       } else { 
         this.state.timeRemaining = this.shortBreak * 60;
-
+        this.updateDisplay(this.state.timeRemaining);
         this.focusBtn.classList.remove('active');
         this.shortPauseBtn.classList.add('active');
         this.longPauseBtn.classList.remove('active');
@@ -174,6 +175,7 @@ class PomodoroWidget {
     this.pauseBtn.classList.remove('active');
 
     this.state.isRunning = false;
+    this.saveState();
     if (this.worker) this.worker.postMessage({ action: 'stop' });
   }
 
@@ -191,6 +193,7 @@ class PomodoroWidget {
     this.longPauseBtn.classList.remove('active');
     
     if (this.worker) {
+      this.worker.postMessage({ action: 'stop' });
       this.worker.terminate();
       this.worker = null;
     }
@@ -233,12 +236,8 @@ class PomodoroWidget {
             if (this.state.isFocusPhase) {
               this.state.currentCycle++;
               this.state.isFocusPhase = false;
-              this.state.timeRemaining = this.state.currentCycle % this.cycleCount === 0
-                  ? this.longBreak * 60
-                  : this.shortBreak * 60;
             } else {
                 this.state.isFocusPhase = true;
-                this.state.timeRemaining = this.focusTime * 60;
             }
             
             this.saveState();
