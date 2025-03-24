@@ -310,3 +310,18 @@ body {
 .phase-confirm__btn--cancel:hover {
     background-color: #d32f2f;
 }
+
+@media (max-width: 600px) {
+  .pomodoro {
+    padding: 1rem;
+  }
+  
+  .top-controls {
+    gap: 0.3rem;
+    padding: 0.3rem;
+  }
+
+  .top-controls__btn {
+    padding: 0.5rem 0.8rem;
+  }
+}
