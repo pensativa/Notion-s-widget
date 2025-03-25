@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const currentCity = cityInput.value || 'Kyiv';
       const type = 'weather';
       meathureInputs.forEach(el => {
-        console.log(el)
         if (el.checked) {
           currentMeasure = el.getAttribute('id');
         }
@@ -134,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadWeather(currentCity='Kyiv', currentMeasure='metric', type='weather') {
       const api_url =`https://api.openweathermap.org/data/2.5/${type}?units=${currentMeasure}&q=${currentCity}&lang=en&appid=5df46c6ea9222d2b4875c0dc6b4eb1c3`;
-      console.log(api_url)
 
       block.innerHTML = `
         <div class="weather__loading">
@@ -146,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch(api_url);
         const data = await response.json();
         if (!response.ok) throw new Error(`${statusCode} ${statusMessage}`);
-        console.log(data)
         getWeather(data)
       } catch (error) {
         console.error(error);
@@ -157,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadWeather();
 
     function getWeather(data) {
-      //console.log(data)
       const city = data.name;
       const status = data.weather[0].description;
       const temp = isPlus(data.main.temp);
